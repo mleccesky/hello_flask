@@ -1,8 +1,7 @@
 # My first Flask web server
-from flask import Flask
+from flask import Flask, url_for, request, \
+render_template
 from markupsafe import escape
-from flask import url_for
-from flask import request
 
 app = Flask(__name__)
 
@@ -17,17 +16,14 @@ def login():
     else:
         return show_the_login_form()
 
-# @app.get('/login')
-# def login_get():
-#     return show_the_login_form()
-
-# @app.post('/login')
-# def login_post():
-#     return do_the_login()
-
-
 def do_the_login():
     return "login procedure start..."
 
 def show_the_login_form():
     return "login form:"
+
+
+@app.route('/hello/')
+@app.route("/hello/<name>")
+def hello(name=None):
+    return render_template('hello.html', person=name)
