@@ -28,14 +28,15 @@ def show_the_login_form():
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     error = None
+    args = request.args.get("foo") + request.args.get("bar")
     if request.method == 'POST':
         if valid_login(request.form['username'],
         request.form['password']):
-            return render_template('login.html', username = request.form['username'])
+            return render_template('login.html', username = request.form['username'] + args)
         else:
             error = "Invalid username/password"
 
-    return render_template('login.html', username = "BAD BOY NOT LOGGED or GET REQUEST. I KNOW YOU!")
+    return render_template('login.html', username = "BAD BOY NOT LOGGED or GET REQUEST. I KNOW YOU!" + args)
 
 def log_the_user_in(username=None):
     if not username:
